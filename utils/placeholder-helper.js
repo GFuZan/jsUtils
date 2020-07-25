@@ -10,6 +10,10 @@ var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix) {
         throw '必须指定插值前缀和后缀'
     }
 
+    if (placeholderPrefix === placeholderSuffix) {
+        throw '插值前缀和后缀不能相同'
+    }
+
     var valueList = {}
     var handle = {
 
