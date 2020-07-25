@@ -28,6 +28,14 @@ var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix) {
         },
 
         /**
+         * 清理插值
+         */
+        cleanValue: function () {
+            valueList = {}
+            return handle
+        },
+
+        /**
          * 执行替换
          * @param {String} placeholderString 包含插值的字符串
          */
