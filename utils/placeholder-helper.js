@@ -6,7 +6,6 @@
  * @param {*} config 配置项 { showPlaceholder:是否显示替换失败的插值,默认false, }
  */
 var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix, config) {
-
     if (!placeholderPrefix || !placeholderSuffix) {
         throw '必须指定插值前缀和后缀'
     }
@@ -15,7 +14,7 @@ var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix, config) 
         throw '插值前缀和后缀不能相同'
     }
 
-    var config = config || {
+    config = config || {
         // 不显示替换失败的插值
         showPlaceholder: false
     }
@@ -56,25 +55,25 @@ var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix, config) 
                 if (str !== placeholderSuffix) {
                     placeholderPartStack.push(str)
                 } else {
-                   var key =  placeholderPartStack.pop()
-                   var preKey =  null
-                   // 从前缀到后缀中的值为插值
-                   while((preKey = placeholderPartStack.pop()) !== placeholderPrefix){
-                    key = preKey + key
-                    if (placeholderPartStack.length === 0) {
-                        break
+                    var key = placeholderPartStack.pop()
+                    var preKey = null
+                    // 从前缀到后缀中的值为插值
+                    while ((preKey = placeholderPartStack.pop()) !== placeholderPrefix) {
+                        key = preKey + key
+                        if (placeholderPartStack.length === 0) {
+                            break
+                        }
                     }
-                   }
-                   // 前缀后缀不对等兼容
-                   if (placeholderPartStack.length !== 0) {
-                    var repValue = config.showPlaceholder ? valueList[key] != undefined ? valueList[key] : placeholderPrefix + key + placeholderSuffix : valueList[key]
-                    placeholderPartStack.push(repValue)
-                   } else {
-                       placeholderPartStack.push(key + placeholderSuffix)
-                   }
+                    // 前缀后缀不对等兼容
+                    if (placeholderPartStack.length !== 0) {
+                        var repValue = config.showPlaceholder ? valueList[key] !== undefined ? valueList[key] : placeholderPrefix + key + placeholderSuffix : valueList[key]
+                        placeholderPartStack.push(repValue)
+                    } else {
+                        placeholderPartStack.push(key + placeholderSuffix)
+                    }
                 }
             })
-            
+
             return placeholderPartStack.join('')
         }
     }
@@ -90,13 +89,12 @@ var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix, config) 
 var getPlaceholderList = function (placeholderString, placeholderPrefix, placeholderSuffix) {
     var prefixStrs = placeholderString.split(placeholderPrefix)
     var partStack = []
-    var pOrs = 0
     prefixStrs && prefixStrs.forEach(function (str, pi) {
         var suffixStrs = str.split(placeholderSuffix)
         // 追加前缀
         pi !== 0 && partStack.push(placeholderPrefix)
         suffixStrs.forEach(function (str2, si) {
-            partStack.push(str2);
+            partStack.push(str2)
             // 追加后缀
             suffixStrs.length - 1 !== si && partStack.push(placeholderSuffix)
         })
