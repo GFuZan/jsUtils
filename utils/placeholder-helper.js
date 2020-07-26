@@ -1,10 +1,11 @@
 
 /**
  * 插值替换工具
- * @param {*} placeholderPrefix 前缀
- * @param {*} placeholderSuffix 后缀
+ * @param {String} placeholderPrefix 前缀
+ * @param {String} placeholderSuffix 后缀
+ * @param {*} config 配置项 { showPlaceholder:是否显示替换失败的插值,默认false, }
  */
-var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix) {
+var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix, config) {
 
     if (!placeholderPrefix || !placeholderSuffix) {
         throw '必须指定插值前缀和后缀'
@@ -12,6 +13,11 @@ var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix) {
 
     if (placeholderPrefix === placeholderSuffix) {
         throw '插值前缀和后缀不能相同'
+    }
+
+    var config = config || {
+        // 不显示替换失败的插值
+        showPlaceholder: false
     }
 
     var valueList = {}
@@ -60,7 +66,12 @@ var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix) {
                     }
                    }
                    // 前缀后缀不对等兼容
-                   placeholderPartStack.length !== 0 ?  placeholderPartStack.push(valueList[key]) : placeholderPartStack.push(key + placeholderSuffix)
+                   if (placeholderPartStack.length !== 0) {
+                    var repValue = config.showPlaceholder ? valueList[key] != undefined ? valueList[key] : placeholderPrefix + key + placeholderSuffix : valueList[key]
+                    placeholderPartStack.push(repValue)
+                   } else {
+                       placeholderPartStack.push(key + placeholderSuffix)
+                   }
                 }
             })
             

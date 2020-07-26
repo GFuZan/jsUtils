@@ -40,7 +40,45 @@ console.log(PlaceholderHelper('#{', '}')
               .addValue('year', 'yy')
               .replacePlaceholders('今天#{是#{yyyy}年#{MM}月#{dd}日#{'));
 
+console.log('\n#-- 基本使用方式 - 显示替换失败插值')
+console.log(PlaceholderHelper('${', '}', {showPlaceholder: true})
+            .addValue('yyyy', '2020')
+            // .addValue('MM','07')
+            .addValue('dd','01')
+            .replacePlaceholders('今天是${yyyy}年${MM}月${dd}日'));
 
+console.log('\n#-- 嵌套替换-一级 - 显示替换失败插值')
+console.log(PlaceholderHelper('${', '}', {showPlaceholder: true})
+            // .addValue('yyyy', '2020')
+            .addValue('MM','07')
+            .addValue('dd','01')
+            .addValue('year', 'yy')
+            .replacePlaceholders('今天是${y${year}y}年${MM}月${dd}日'));
+
+console.log('\n#-- 嵌套替换-多级 - 显示替换失败插值')
+console.log(PlaceholderHelper('${', '}', {showPlaceholder: true})
+            .addValue('12345', '2020')
+            // .addValue('abc','234')
+            .addValue('777','b')
+            .addValue('1000', 'c')
+            .addValue('hh', '00')
+            .replacePlaceholders('今天是${1${a${777}${1${hh}0}}5}年'));
+
+console.log('\n#-- 前缀后缀不一致测试-多余后缀 - 显示替换失败插值')
+console.log(PlaceholderHelper('{', '}', {showPlaceholder: true})
+            .addValue('yyyy', '2020')
+            // .addValue('MM','07')
+            .addValue('dd','01')
+            .addValue('year', 'yy')
+            .replacePlaceholders('今天是{y{year}y}年}{MM}月}{dd}日}'));
+
+console.log('\n#-- 前缀后缀不一致测试-多余前缀 - 显示替换失败插值')
+console.log(PlaceholderHelper('#{', '}', {showPlaceholder: true})
+            .addValue('yyyy', '2020')
+            // .addValue('MM','07')
+            .addValue('dd','01')
+            .addValue('year', 'yy')
+            .replacePlaceholders('今天#{是#{yyyy}年#{MM}月#{dd}日#{'));
 
 
 
