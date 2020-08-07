@@ -15,6 +15,9 @@ const data = {
     }
   }
 
+  watch(data, ['x'], (newVal, oldVal, key)=>{
+    console.log(`监听未定义值: X = ${data['x']}, newVal = ${newVal}, oldVal = ${oldVal}, key = ${key}`);
+  })
 
   // 监听a的变化
   watch(data, ['a'], (newVal, oldVal, key)=>{
@@ -44,4 +47,5 @@ const data = {
   setInterval(()=>{
     data.a++
     data.d++
+    data.x = (data.x || 0) + 1
   }, 2000)
