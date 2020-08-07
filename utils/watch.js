@@ -8,9 +8,16 @@ function Vue () { }
  * @param {*} watchObject 监听对象
  * @param {Array<String>} watchKeys 监听的key
  * @param {Function} handle 监听处理
+ * @param {Object} config 配置
  * @returns 监听key 用于移除监听
  */
-Vue.prototype.watch = function (watchObject, watchKeys, handle) {
+Vue.prototype.watch = function (watchObject, watchKeys, handle, config) {
+    // 配置
+    config = config || {
+        // 是否添加监听后立刻执行, 执行时回调值不存在
+        immediate: false
+    }
+
     var vueWatch = null
     watchObject && (!watchObject[watchListKey] && (Object.defineProperty(watchObject, watchListKey, {
         configurable: false,
@@ -55,6 +62,15 @@ Vue.prototype.watch = function (watchObject, watchKeys, handle) {
         // 添加处理至监听队列
         vueWatch[key][String(handle)] = handle
     })
+
+    // 立即执行
+    if (config.immediate) {
+        try {
+            handle && handle()
+        } catch (error) {
+            console.warn('监听执行异常', error, handle)
+        }
+    }
 
     return {
         watchObject: watchObject,

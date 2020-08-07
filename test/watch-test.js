@@ -19,6 +19,8 @@ const data = {
   // 监听a的变化
   watch(data, ['a'], (newVal, oldVal, key)=>{
     console.log(`监听A: A = ${data['a']}, newVal = ${newVal}, oldVal = ${oldVal}, key = ${key}`);
+  }, {
+    immediate: true
   })
 
   // 监听a,b,c三个值得变化
