@@ -16,7 +16,9 @@ Vue.prototype.watch = function (watchObject, watchKeys, handle, config) {
         // 配置
         config = config || {
             // 是否添加监听后立刻执行, 执行时回调值不存在
-            immediate: false
+            immediate: false,
+            // 指定处理方法的唯一key, 用于监听去重
+            handleKey: null
         }
     
         var vueWatch = null
@@ -66,7 +68,7 @@ Vue.prototype.watch = function (watchObject, watchKeys, handle, config) {
                 })
             }
             // 添加处理至监听队列
-            vueWatch[key][String(handle)] = handle
+            vueWatch[key][config.handleKey || String(handle)] = handle
         })
     
         // 立即执行
@@ -81,7 +83,7 @@ Vue.prototype.watch = function (watchObject, watchKeys, handle, config) {
         return {
             watchObject: watchObject,
             watchKeys: watchKeys,
-            handleKey: String(handle)
+            handleKey: config.handleKey || String(handle)
         }
     } catch (error) {
         console.error(error);
