@@ -87,18 +87,26 @@ var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix, config) 
  * @param {String} placeholderSuffix 后缀
  */
 var getPlaceholderList = function (placeholderString, placeholderPrefix, placeholderSuffix) {
-    var prefixStrs = placeholderString.split(placeholderPrefix)
+    var placeholderList = [placeholderPrefix, placeholderSuffix]
     var partStack = []
-    prefixStrs && prefixStrs.forEach(function (str, pi) {
-        var suffixStrs = str.split(placeholderSuffix)
-        // 追加前缀
-        pi !== 0 && partStack.push(placeholderPrefix)
-        suffixStrs.forEach(function (str2, si) {
-            partStack.push(str2)
-            // 追加后缀
-            suffixStrs.length - 1 !== si && partStack.push(placeholderSuffix)
-        })
-    })
+    var startIndex = 0
+    var endIndex = 0
+    while (endIndex < placeholderString.length) {
+        if (!placeholderList.some(function (placeholder) {
+            if (placeholderString.substr(endIndex, placeholder.length) === placeholder) {
+                partStack.push(placeholderString.substring(startIndex, endIndex))
+                partStack.push(placeholder)
+                startIndex = endIndex = endIndex + placeholder.length
+                return true
+            }
+        })) {
+            endIndex++
+        }
+    }
+
+    if (startIndex !== endIndex) {
+        partStack.push(placeholderString.substring(startIndex, endIndex))
+    }
 
     return partStack
 }
