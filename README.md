@@ -20,6 +20,7 @@
                 .replacePlaceholders('今天是${1${a${777}${1${hh}0}}5}年'));
 </pre>
 </p>
+
 <p>
 <h4>2.数据监听工具</h4>
 <pre>
@@ -39,5 +40,16 @@
 
     // 移除监听
     unWatch(wk)
+</pre>
+</p>
+
+<p>
+<h4>3.时间格式化工具</h4>
+<pre>
+    const { formatDate } = require('../utils/date-tool')
+    var date = new Date('2020/08/09 13:20:30.50')
+
+    console.log('基本用法');
+    console.log(formatDate(date, 'yyyy-MM-dd HH:mm:ss.SSS'))
 </pre>
 </p>
