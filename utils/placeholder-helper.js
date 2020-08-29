@@ -3,7 +3,10 @@
  * 插值替换工具
  * @param {String} placeholderPrefix 前缀
  * @param {String} placeholderSuffix 后缀
- * @param {*} config 配置项 { showPlaceholder:是否显示替换失败的插值,默认false, }
+ * @param {PlaceholderHelperConfig?} config 配置项
+ *
+ * @typedef {Object} PlaceholderHelperConfig 插值替换工具配置项
+ * @property {Boolean} showPlaceholder 是否显示替换失败的插值,默认false
  */
 var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix, config) {
     if (!placeholderPrefix || !placeholderSuffix) {
@@ -43,6 +46,7 @@ var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix, config) 
         /**
          * 执行替换
          * @param {String} placeholderString 包含插值的字符串
+         * @returns {String} 替换后的结果
          */
         replacePlaceholders: function (placeholderString) {
             if (!placeholderString) {

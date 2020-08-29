@@ -7,17 +7,24 @@ function Vue () { }
 /**
  * @param {*} watchObject 监听对象
  * @param {Array<String>} watchKeys 监听的key
- * @param {Function} handle 监听处理
- * @param {Object} config 配置
- * @returns 监听key 用于移除监听
+ * @param {WatchHanle} handle 监听处理
+ * @param {WatchConfig?} config 配置
+ * @returns {WatchKey} 监听key 用于移除监听
+ *
+ * @callback WatchHanle 值发生变化时处理方法
+ * @param {*} newVal 更改后的值
+ * @param {*} oldVal 更改前的值
+ * @param {String|Number} key 更改的字段
+ *
+ * @typedef {Object} WatchConfig 监听配置
+ * @property {Boolean?} immediate 是否添加监听后立刻执行, 执行时回调值不存在, 默认false
+ * @property {String|Number?} handleKey 指定处理方法的唯一标识, 用于监听去重,不指定时,默认为handle
  */
 Vue.prototype.watch = function (watchObject, watchKeys, handle, config) {
     try {
         // 配置
         config = config || {
-            // 是否添加监听后立刻执行, 执行时回调值不存在
             immediate: false,
-            // 指定处理方法的唯一key, 用于监听去重
             handleKey: null
         }
     
@@ -92,7 +99,11 @@ Vue.prototype.watch = function (watchObject, watchKeys, handle, config) {
 
 /**
  * 取消监听
- * @param watchKey 监听key
+ * @param {WatchKey} watchKey 监听key
+ * @typedef {Object} WatchKey 监听key
+ * @property {*} watchObject 监听的对象
+ * @property {Array<String>} watchKeys 监听的属性列表
+ * @property {String|Number} handleKey 监听处理的标识
  */
 Vue.prototype.unWatch = function (watchKey) {
     try {
