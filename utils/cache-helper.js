@@ -49,7 +49,7 @@ var CacheHelper = function (config) {
          * @returns {CacheObject?} 移除的缓存对象
          */
         removeCache: function (key) {
-            var value = getCache(key)
+            var value = this.getCache(key)
             value && (delete cacheData[key])
             return value
         },
