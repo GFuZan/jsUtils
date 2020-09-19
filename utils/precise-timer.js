@@ -55,7 +55,7 @@ var PreciseTimer = function (config) {
 
             var runHandle = function (immediate) {
                 var currTime = Date.now()
-                var diff = currTime - startTime - timeSpan * count
+                var diff = immediate || currTime - startTime - timeSpan * (count - 1)
                 if (diff > timeSpan) {
                     count += Math.floor(diff/timeSpan)
                     immediate = 1
@@ -65,7 +65,7 @@ var PreciseTimer = function (config) {
                     if (!forceStop && count <= totalSteps) {
                         runHandle()
                     }
-                }, immediate || timeSpan - diff)
+                }, (immediate || timeSpan - diff) - Math.ceil(diff/2))
             }
             runHandle(1)
 
