@@ -40,7 +40,7 @@ var PreciseTimer = function (config) {
     return {
         /**
          * 启动计时
-         * @param {TimeRunHandle} timeRunHandle 请设置计时处理函数
+         * @param {TimeRunHandle} timeRunHandle 计时处理函数
          * @returns {Function} 强制终止函数
          */
         start: function(timeRunHandle){
@@ -72,7 +72,6 @@ var PreciseTimer = function (config) {
             return function () {
                 clearTimeout(setTimeoutInstance)
                 forceStop = true
-
             }
         }
     }
