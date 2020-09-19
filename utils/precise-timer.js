@@ -53,21 +53,27 @@ var PreciseTimer = function (config) {
             // 强制终止标志
             var forceStop = false
 
-            var runHandle = function (immediate) {
+            var runHandle = function () {
                 var currTime = Date.now()
-                var diff = immediate || currTime - startTime - timeSpan * (count - 1)
+                // 误差
+                var diff = currTime - startTime - timeSpan * (count - 1)
+                // 下次执行时间
+                var nextRunTime = (timeSpan - diff) - Math.ceil(diff/2)
                 if (diff > timeSpan) {
                     count += Math.floor(diff/timeSpan)
-                    immediate = 1
                 }
                 setTimeoutInstance = setTimeout(() => {
                     callbackHandle()
                     if (!forceStop && count <= totalSteps) {
                         runHandle()
                     }
-                }, (immediate || timeSpan - diff) - Math.ceil(diff/2))
+                }, nextRunTime > 0 ? nextRunTime : 0)
             }
-            runHandle(1)
+
+            // 启动时直接触发一次回调
+            callbackHandle()
+            // 运行计时
+            runHandle()
 
             return function () {
                 clearTimeout(setTimeoutInstance)
