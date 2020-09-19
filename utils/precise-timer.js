@@ -43,7 +43,7 @@ var PreciseTimer = function (config) {
          * @param {TimeRunHandle} timeRunHandle 计时处理函数
          * @returns {Function} 强制终止函数
          */
-        start: function(timeRunHandle){
+        start: function (timeRunHandle) {
             if (!timeRunHandle) throw new Error('请设置计时处理函数')
             trh = timeRunHandle
 
@@ -58,9 +58,9 @@ var PreciseTimer = function (config) {
                 // 误差
                 var diff = currTime - startTime - timeSpan * (count - 1)
                 // 下次执行时间
-                var nextRunTime = (timeSpan - diff) - Math.ceil(diff/2)
+                var nextRunTime = (timeSpan - diff) - Math.ceil(diff / 2)
                 if (diff > timeSpan) {
-                    count += Math.floor(diff/timeSpan)
+                    count += Math.floor(diff / timeSpan)
                 }
                 setTimeoutInstance = setTimeout(() => {
                     callbackHandle()
