@@ -10,7 +10,8 @@
  * @property {Number} timeSpan 时间跨度(ms), 默认值: 1000
  * 
  * @callback TimeRunHandle 计时回调
- * @param {Numbar} currentTime 当前计时值
+ * @param {Number} currentTime 当前计时值
+ * @param {Number} currentCount 当前执行次数
  */
 var PreciseTimer = function (config) {
 
@@ -30,7 +31,7 @@ var PreciseTimer = function (config) {
 
     var callbackHandle = function () {
         try {
-            trh(fromTime + toTime - incrementUnit * timeSpan * count)
+            trh(fromTime + toTime - incrementUnit * timeSpan * count, count)
         } catch (error) {
             console.error('执行计时处理函数出错', error)
         }
