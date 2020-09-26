@@ -57,6 +57,9 @@
 <p>
 <h4>4.精准倒计时工具</h4>
 <pre>
+
+    const PreciseTimer = require('../utils/precise-timer')
+
     // 从10000毫秒倒计时到0, 每隔10毫秒触发一次回调
 
     const startDate = Date.now()
