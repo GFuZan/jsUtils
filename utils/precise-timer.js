@@ -15,8 +15,8 @@
  */
 var PreciseTimer = function (config) {
 
-    var toTime = (config.toTime || 0)
-    var fromTime = (config.fromTime || 10000) - toTime
+    var toTime = Number.isInteger(config.toTime) ? config.toTime : 0
+    var fromTime = (Number.isInteger(config.fromTime) ? config.fromTime : 10000) - toTime
     var timeSpan = config.timeSpan || 1000
 
     /**
@@ -26,8 +26,8 @@ var PreciseTimer = function (config) {
     // 计数次数
     var count = 0
     // 总共执行次数
-    var totalSteps = Math.abs(Math.ceil(fromTime / timeSpan))
-    var incrementUnit = Number.parseInt(fromTime / Math.abs(fromTime))
+    var totalSteps = Math.abs(Math.ceil(fromTime / (timeSpan || 1)))
+    var incrementUnit = Number.parseInt(fromTime / Math.abs(fromTime || 1))
 
     var callbackHandle = function () {
         try {
@@ -74,7 +74,7 @@ var PreciseTimer = function (config) {
             // 启动时直接触发一次回调
             callbackHandle()
             // 运行计时
-            runHandle()
+            totalSteps && runHandle()
 
             return function () {
                 clearTimeout(setTimeoutInstance)

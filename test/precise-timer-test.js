@@ -36,5 +36,6 @@ setTimeout(() => {
     // 强制终止计时
     setTimeout(() => {
         forceStop()
+        console.log('强制终止完成');
     }, 10000)
 }, 10500)
