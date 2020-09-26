@@ -53,3 +53,20 @@
     console.log(formatDate(date, 'yyyy-MM-dd HH:mm:ss.SSS'))
 </pre>
 </p>
+
+<p>
+<h4>4.精准倒计时工具</h4>
+<pre>
+    // 从10000毫秒倒计时到0, 每隔10毫秒触发一次回调
+
+    const startDate = Date.now()
+    PreciseTimer({
+        fromTime: 10000,
+        timeSpan: 10,
+        toTime: 0
+    }).start((v, c) => {
+        const currTime = Date.now()
+        console.log('总时间: %dms\t当前值: %d', currTime - startDate, v)
+    })
+</pre>
+</p>
