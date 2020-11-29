@@ -69,9 +69,14 @@ var _formatDate = function (date, format) {
  * @property {Boolean?} cache 是否缓存,默认true
  */
 var formatDate = function (date, format, config) {
-    config = config || {
+
+    // 默认配置
+    var defaultConfig = {
         cache: true
     }
+
+    config = config ? Object.assign(defaultConfig, config) : defaultConfig
+
     var formatValue = ''
     !(date instanceof Date) && (date = new Date(date))
     if (!isNaN(date.getTime()) && format) {

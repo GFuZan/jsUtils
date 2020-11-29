@@ -17,10 +17,12 @@ var PlaceholderHelper = function (placeholderPrefix, placeholderSuffix, config) 
         throw '插值前缀和后缀不能相同'
     }
 
-    config = config || {
-        // 不显示替换失败的插值
+    // 默认配置
+    var defaultConfig = {
         showPlaceholder: false
     }
+
+    config = config ? Object.assign(defaultConfig, config) : defaultConfig
 
     var valueList = {}
     var handle = {

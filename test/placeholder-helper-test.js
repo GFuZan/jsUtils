@@ -87,21 +87,37 @@ console.log(PlaceholderHelper('#{', '}', {showPlaceholder: true})
  * @param {String} str 
  */
 const performanceTest = (str, count = 10000) => {
-    var start = Date.now()
     var res = null
+    var start = Date.now()
+    var ph = PlaceholderHelper('${', '}')
+    .addValue('y0701y', '2020')
+    .addValue('MM','07')
+    .addValue('dd','01')
     for(var a = 0; a< count; a++){
-        res = PlaceholderHelper('${', '}')
-        .addValue('y0701y', '2020')
-        .addValue('MM','07')
-        .addValue('dd','01')
-        .replacePlaceholders(str)
+        res = ph.replacePlaceholders(str)
     }
     console.log('工具: ', Date.now() - start, 'ms');
     console.log('工具结果: ', res.substr(0,100));
 
     var start = Date.now()
+    const value = {
+        'y0701y': '2020',
+        'MM': '07',
+        'dd': '01'
+    }
+    var prefix = '\\$\\{'
+    var suffix = '\\}'
+    var reg = new RegExp(prefix + '(((?!' + prefix + ').)*?)' + suffix, 'g')
     for(var a = 0; a< count; a++){
-        res = str.replace(/\${y0701y}/g, '2020').replace(/\${MM}/g, '07').replace(/\${dd}/g, '01')
+        res = str
+        var reped = false
+        do {
+            reped = false
+            res = res.replace(reg, ($0, $1) => {
+                reped = true
+                return value[$1];
+            });
+        } while (reped);
     }
     console.log('直接替换: ', Date.now() - start, 'ms');
     console.log('直接替换结果: ', res.substr(0,100));

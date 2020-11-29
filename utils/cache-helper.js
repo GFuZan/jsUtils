@@ -18,7 +18,7 @@ var CacheHelper = function (config) {
         // 空闲多少毫秒后进行缓存清理,开启自动清理缓存时有效
         autoCleanTime: 100
     }
-    config = config || defaultConfig
+    config = config ? Object.assign(defaultConfig, config) : defaultConfig
 
     var cleanHelper = null
     var cacheData = {}
