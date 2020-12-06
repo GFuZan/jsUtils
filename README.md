@@ -1,4 +1,7 @@
-# js工具集
+<!-- @format -->
+
+# js 工具集
+
 <p>
 <h4>1.支持嵌套的插值替换工具</h4>
 <pre>
@@ -40,6 +43,7 @@
 
     // 移除监听
     unWatch(wk)
+
 </pre>
 </p>
 
@@ -51,6 +55,7 @@
 
     console.log('基本用法');
     console.log(formatDate(date, 'yyyy-MM-dd HH:mm:ss.SSS'))
+
 </pre>
 </p>
 
@@ -71,5 +76,6 @@
         const currTime = Date.now()
         console.log('总时间: %dms\t当前值: %d', currTime - startDate, v)
     })
+
 </pre>
 </p>
