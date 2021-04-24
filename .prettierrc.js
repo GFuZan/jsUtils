@@ -10,5 +10,5 @@ module.exports = {
     bracketSpacing: true, //对象大括号直接是否有空格，默认为true，效果：{ foo: bar },
     requirePragma: false, // 是否需要在文件头加上 @format 注释才进行格式化
     insertPragma: true, // 文件中插入一个特殊的标记 @format ，指定文件已格式化
-    endOfLine: 'lf', // 换行符. <lf|crlf|cr|auto> lf: \n, crlf: \r\n, cr: \r, auto: 维护现有行末 
+    endOfLine: 'auto', // 换行符. <lf|crlf|cr|auto> lf: \n, crlf: \r\n, cr: \r, auto: 维护现有行末 
 };
